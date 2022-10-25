@@ -1,0 +1,174 @@
+<template>
+    <form-component :form-config="formConfig"/>
+</template>
+
+<script>
+import FormComponent from "@components/Form/FormComponent.vue";
+
+/**
+ * поле ввода
+ * @defaultItem
+ * @var id идентификатор поля
+ * @var name имя поля которое будет отправляться на сервер
+ * @var label
+ * @var type тип поля (text, password, number, checkbox и т.д.)
+ * @var model переменная в которой будет хранится значение
+ * @var rules правила валидации массив с правилами
+ * [{required: true, message: 'Поле обязательное'}, {max: 10, message: 'max 10'}]
+ * [ len, max, min, message, required, type,
+ * pattern, // regExp
+ * trigger, // [change, blur] условие срабатывания
+ * validator, // колбэк валидации
+ * ]
+ *
+ * @type {{name: string, model: string, rules: [{}], id: number, type: string}}
+ */
+
+export default {
+    name: "FormPage",
+    components: {
+        FormComponent
+    },
+    data: () => ({
+        formConfig: {
+            name: 'form',
+            title: 'Форма',
+            dataMap: {
+                textField: '',
+                numberField: 0,
+                numberField2: 0,
+                numberField3: 0,
+                textareaField: '',
+                radioField: null,
+                dateField: null,
+            },
+            buttons: [
+                {
+                    key: 'btn_1',
+                    name: 'enter',
+                    title: 'Отправить',
+                    type: 'submit',
+                }
+            ],
+            fieldsMap: [
+                [
+                    {
+                        key: 1,
+                        type: 'text',
+                        name: 'textField',
+                        label: 'Тестовое поле',
+                        model: 'textField',
+                        span: 12,
+                        placeholder: 'Введите текст',
+                        rules: [
+                            {
+                                required: true,
+                                message: `Поле должно быть заполнено`
+                            },
+                        ]
+                    },
+                    {
+                        key: 2,
+                        type: 'number',
+                        name: 'numberField',
+                        label: 'Числовое поле',
+                        model: 'numberField',
+                        span: 4,
+                        rules: [
+                            {
+                                type: 'number',
+                                trigger: 'change',
+                                message: `числовое поле`
+                            },
+                        ]
+                    },
+                    {
+                        key: 4,
+                        type: 'number',
+                        name: 'numberField2',
+                        label: 'Числовое поле',
+                        model: 'numberField2',
+                        decimal: 4,
+                        span: 4,
+                        rules: [
+                            {
+                                type: 'number',
+                                trigger: 'change',
+                                message: `числовое поле`
+                            },
+                        ]
+                    },
+                    {
+                        key: 5,
+                        type: 'number',
+                        name: 'numberField3',
+                        label: 'Числовое поле',
+                        model: 'numberField3',
+                        decimal: 2,
+                        span: 4,
+                        rules: [
+                            {
+                                type: 'number',
+                                trigger: 'change',
+                                message: `числовое поле`
+                            },
+                        ]
+                    },
+                ],
+                {
+                    key: 3,
+                    type: 'textarea',
+                    name: 'textareaField',
+                    label: 'TextField поле',
+                    model: 'textareaField',
+                    // span: 12,
+                    // rules: [
+                    //     {
+                    //         required: true,
+                    //         message: `Поле должно быть заполнено`
+                    //     },
+                    // ]
+                },
+                {
+                    key: 6,
+                    type: 'radio',
+                    name: 'radioField',
+                    label: 'radioField поле',
+                    model: 'radioField',
+                    options: [
+                        {label: 'one', value: 1},
+                        {label: 'two', value: 2},
+                        {label: 'three', value: 3},
+                    ],
+                    // span: 12,
+                    rules: [
+                        {
+                            required: true,
+                            message: `Поле должно быть заполнено`
+                        },
+                    ]
+                },
+                {
+                    key: 7,
+                    type: 'date',
+                    name: 'dateField',
+                    label: 'dateField поле',
+                    model: 'dateField',
+                    // span: 12,
+                    rules: [
+                        {
+                            required: true,
+                            message: `Поле должно быть заполнено`
+                        },
+                    ]
+                },
+
+            ],
+        },
+    }),
+}
+</script>
+
+<style scoped>
+
+</style>

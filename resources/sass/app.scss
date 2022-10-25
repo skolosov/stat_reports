@@ -1,0 +1,17 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// antd-design-vue
+@import 'ant-design-vue/dist/antd.css';
+
+html, body, #app {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
