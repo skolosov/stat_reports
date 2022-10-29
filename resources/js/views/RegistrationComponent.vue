@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { message } from 'ant-design-vue';
+import {message} from 'ant-design-vue';
 import FormComponent from "@components/Form/FormComponent.vue";
 
 export default {
@@ -120,27 +120,26 @@ export default {
     },
     methods: {
         submitCallback(props) {
+            console.log('Reg', props);
             message.loading({
                 content: 'Сохранение пользователя',
                 key: 1,
             });
-            axios.get('sanctum/csrf-cookie').then(
-                (response) => {
-                    axios.post('/register', props)
-                    .then((response) => {
-                        message.success({
-                            content: 'Пользователь сохранен',
-                            key: 1,
-                        });
-                    })
-                    .catch((err) => {
-                        message.error({
-                            content: err.response.data.message,
-                            key: 1,
-                        });
+
+            axios.post('/api/register', props)
+                .then((response) => {
+                    message.success({
+                        content: 'Пользователь сохранен',
+                        key: 1,
                     });
-                }
-            );
+                })
+                .catch((err) => {
+                    console.log('err ', err);
+                    message.error({
+                        content: err.response.data.message,
+                        key: 1,
+                    });
+                });
         },
     }
 }

@@ -1,11 +1,13 @@
 <template>
     <div class="container">
-        <form-component :form-config="formConfig"/>
+        <form-component @finish="submitCallback" :form-config="formConfig"/>
     </div>
 </template>
 
 <script>
 import FormComponent from "@components/Form/FormComponent.vue";
+import {message} from "ant-design-vue";
+import Auth from "../Auth.js";
 
 export default {
     name: "LoginComponent",
@@ -66,6 +68,20 @@ export default {
     components: {
         FormComponent,
     },
+    methods: {
+        submitCallback(props) {
+            console.log('login', props)
+            axios.post('/api/login', props)
+                .then(({data}) => {
+                    console.log('HUIIIII', data);
+                    Auth.login(data.access_token, data.user); //set local storage
+                    this.$router.push('/db');
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+    }
 }
 </script>
 
