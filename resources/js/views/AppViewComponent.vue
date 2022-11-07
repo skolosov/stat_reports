@@ -1,9 +1,10 @@
 <template>
     <a-config-provider :locale="locale">
         <menu-component
-            @signIn="redirectToPage"
-            @registration="redirectToPage"
+            @SignIn="redirectToPage"
+            @Registration="redirectToPage"
             @Logout="logout"
+            :auth="auth"
         />
         <template v-if="!showLayout">
             <layout-component>
@@ -20,6 +21,7 @@ import LayoutComponent from "./LayoutComponent.vue";
 import ruRU from 'ant-design-vue/es/locale/ru_RU.js';
 import MenuComponent from "@components/MenuComponent.vue";
 import Auth from "../Auth";
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
     name: 'AppViewComponent',
@@ -28,10 +30,10 @@ export default {
         MenuComponent,
     },
     data: () => ({
-        auth: false,
         locale: ruRU,
     }),
     computed: {
+        ...mapGetters(['auth']),
         pathName() {
             return this.$route.name;
         },
@@ -43,14 +45,16 @@ export default {
         console.log('app', this.$route);
     },
     methods: {
+        ...mapActions(['setAuth']),
         redirectToPage(name) {
             this.$router.push({name});
         },
         logout() {
             axios.post('/api/logout')
-                .then(({data}) => {
+                .then(() => {
                     Auth.logout(); //reset local storage
                     this.$router.push({name: 'SignIn'});
+                    this.setAuth(false);
                 })
                 .catch((error) => {
                     console.log (error);

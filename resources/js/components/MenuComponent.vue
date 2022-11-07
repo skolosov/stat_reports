@@ -5,28 +5,27 @@
         :style="{justifyContent: 'flex-end'}"
         theme="dark"
     >
-        <a-menu-item v-if="!checkAuth()" @click="onClickMenuBtn('SignIn')" key="sign-in">
+        <a-menu-item v-if="!auth" @click="onClickMenuBtn('SignIn')" key="sign-in">
             Войти
         </a-menu-item>
-        <a-menu-item v-if="!checkAuth()" @click="onClickMenuBtn('Registration')" key="reg">
+        <a-menu-item v-if="!auth" @click="onClickMenuBtn('Registration')" key="reg">
             Регистрация
         </a-menu-item>
-        <a-menu-item v-if="checkAuth()" @click="onClickMenuBtn('Logout')" key="logout">
+        <a-menu-item v-if="auth" @click="onClickMenuBtn('Logout')" key="logout">
             Выйти
         </a-menu-item>
     </a-menu>
 </template>
 <script>
-import Auth from "../Auth";
+import {mapGetters} from 'vuex';
 
 export default {
     name: 'MenuComponent',
     emits: ['SignIn', 'Registration', 'Logout'],
-    data: () => ({}),
+    computed: {
+        ...mapGetters(['auth']),
+    },
     methods: {
-        checkAuth() {
-            return Auth.check();
-        },
         onClickMenuBtn(name) {
             this.$emit(name, name);
         }

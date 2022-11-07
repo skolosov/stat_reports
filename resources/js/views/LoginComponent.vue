@@ -6,8 +6,8 @@
 
 <script>
 import FormComponent from "@components/Form/FormComponent.vue";
-import {message} from "ant-design-vue";
 import Auth from "../Auth.js";
+import {mapActions} from 'vuex';
 
 export default {
     name: "LoginComponent",
@@ -69,13 +69,13 @@ export default {
         FormComponent,
     },
     methods: {
+        ...mapActions(['setAuth']),
         submitCallback(props) {
-            console.log('login', props)
             axios.post('/api/login', props)
                 .then(({data}) => {
-                    console.log('HUIIIII', data);
                     Auth.login(data.access_token, data.user); //set local storage
                     this.$router.push('/db');
+                    this.setAuth(true);
                 })
                 .catch((error) => {
                     console.log(error);
