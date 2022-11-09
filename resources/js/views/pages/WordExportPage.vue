@@ -1,5 +1,7 @@
 <template>
     WordExportPage
+
+    <a href="http://localhost/api/download/word">WORD</a>
 </template>
 
 <script>

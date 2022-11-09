@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, createWebHashHistory} from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 import DatabasePage from "@pages/DatabasePage.vue";
 import ExcelExportPage from "@pages/ExcelExportPage.vue";
 import FormPage from "@pages/FormPage.vue";
@@ -50,7 +50,7 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (Auth.check()) {
             next();
-            return;
+            return true;
         } else {
             router.push('/login');
         }

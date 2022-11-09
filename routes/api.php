@@ -29,3 +29,12 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
+
+Route::prefix('download')->group(function () {
+    Route::get('excel', function () {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\XLSXExport(), 'tmp.xlsx');
+    });
+    Route::get('word', function () {
+        new App\Exports\DOCXExport(\Illuminate\Support\Facades\Storage::disk('local')->path('templates'), 'form.docx');
+    });
+});
