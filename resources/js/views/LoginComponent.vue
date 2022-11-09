@@ -8,6 +8,7 @@
 import FormComponent from "@components/Form/FormComponent.vue";
 import Auth from "../Auth.js";
 import {mapActions} from 'vuex';
+import {message} from 'ant-design-vue';
 
 export default {
     name: "LoginComponent",
@@ -78,7 +79,10 @@ export default {
                     this.setAuth(true);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    message.error({
+                        content: error.message,
+                        key: 2,
+                    });
                 });
         },
     }

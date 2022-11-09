@@ -120,7 +120,6 @@ export default {
     },
     methods: {
         submitCallback(props) {
-            console.log('Reg', props);
             message.loading({
                 content: 'Сохранение пользователя',
                 key: 1,

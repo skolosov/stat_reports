@@ -22,10 +22,11 @@ class Auth {
         return !! this.token;
     }
     logout () {
-        // window.localStorage.clear();
+        window.localStorage.clear();
         window.localStorage.removeItem('token');
         window.localStorage.removeItem('user');
         this.user = null;
+        this.token = null;
     }
 }
 export default new Auth();

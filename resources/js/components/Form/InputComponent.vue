@@ -37,6 +37,42 @@
         @input="onInput"
         :placeholder="placeholder"
     />
+    <a-switch
+        v-if="type === 'switch'"
+        v-model:checked="value"
+        @change="onNumberInput"
+    />
+    <a-select
+        v-if="type === 'select'"
+        style="width: 100%"
+        v-model:value="value"
+        @change="onNumberInput"
+        :options="options"
+        :placeholder="placeholder"
+    />
+    <a-checkbox
+        v-if="type === 'checkbox'"
+        v-model:value="value"
+        style="line-height: 32px"
+        @change="onNumberInput"
+    >
+        {{ placeholder }}
+    </a-checkbox>
+    <a-checkbox-group
+        v-if="type === 'checkboxGroup'"
+        v-model:value="value"
+        @change="onChangeCheckboxGroup"
+    >
+        <a-row>
+            <a-col :span="option.span" v-for="(option, i) in options" :key="i">
+                <a-checkbox
+                    :value="option.value"
+                    style="line-height: 32px">
+                    {{ option.label }}
+                </a-checkbox>
+            </a-col>
+        </a-row>
+    </a-checkbox-group>
 </template>
 
 <script>
@@ -51,7 +87,7 @@ export default {
         },
         value: {
             required: false,
-            type: [String, Number, Object]
+            type: [String, Number, Object, Boolean],
         },
         placeholder: {
             type: String,
@@ -70,8 +106,13 @@ export default {
             default: [],
         },
     },
-    data: () => ({
-    }),
+    mounted() {
+        console.log('inputFieldMount',
+            {
+                field: this.field,
+                value: this.value,
+            })
+    },
     methods: {
         onInput(e) {
             this.$emit('input', {value: e.target.value, field: this.field});
@@ -81,6 +122,9 @@ export default {
         },
         onInputDate(e, dateString) {
             this.$emit('input', {value: e, field: this.field});
+        },
+        onChangeCheckboxGroup(val) {
+            this.$emit('input', {value: val, field: this.field});
         }
     }
 }

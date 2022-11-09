@@ -6,6 +6,7 @@ import WordExportPage from "@pages/WordExportPage.vue";
 import LoginComponent from "@views/LoginComponent.vue";
 import RegistrationComponent from "@views/RegistrationComponent.vue"
 import Auth from "./Auth.js";
+import store from './store/index.js';
 
 
 const Home = {template: '<div>Home</div>'};
@@ -22,7 +23,7 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
-        //redirect: {name: 'DB'}
+        redirect: Auth.check() ? {name: 'DB'} : null,
         // redirect: (to) => {
         //     return {
         //         path: '/db',
@@ -52,7 +53,7 @@ router.beforeEach((to, from, next) => {
             next();
             return true;
         } else {
-            router.push('/login');
+            router.push({name: 'SignIn'});
         }
     } else {
         next();

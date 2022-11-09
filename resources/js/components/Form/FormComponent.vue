@@ -27,7 +27,7 @@
                                 >
                                     <input-component
                                         :type="inputDataCol.type"
-                                        :placeholder="inputDataCol?.placeholder"
+                                        :placeholder="inputDataCol.placeholder"
                                         :value="formData[inputDataCol.name]"
                                         :field="inputDataCol.name"
                                         :after-dot-numbers="inputDataCol.decimal"
@@ -50,7 +50,7 @@
                             >
                                 <input-component
                                     :type="inputData.type"
-                                    :placeholder="inputData?.placeholder"
+                                    :placeholder="inputData.placeholder"
                                     :value="formData[inputData.name]"
                                     :field="inputData.name"
                                     :after-dot-numbers="inputData.decimal"
@@ -115,8 +115,9 @@ export default {
     },
     methods: {
         finish(props) {
+            console.log('finish', props)
             this.$emit('finish', props)
-            this.$refs.formRef.resetFields();
+            this.formConfig.resetAfterSubmit && this.$refs.formRef.resetFields();
         },
         inputChange({value, field}) {
             this.formData[field] = value;
